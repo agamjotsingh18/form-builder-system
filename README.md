@@ -11,18 +11,18 @@ This project implements a full-stack dynamic form builder system as an assignmen
 
 | Component | Technology | Rationale |
 | :--- | :--- | :--- |
-| **Frontend** | React (19), TypeScript | Component-based UI development and strong typing [cite: 73, 76] |
-| **Frontend State** | TanStack Query, TanStack Form, TanStack Table | Required libraries for server state, form state, and table functionality [cite: 9, 74] |
-| **Styling** | Tailwind CSS (ShadCN style) | Utility-first CSS for rapid, responsive styling [cite: 9, 75] |
-| **Backend** | Node.js (Express) | Popular, lightweight, and efficient framework for REST APIs [cite: 10] |
-| **Storage** | In-Memory/JSON Simulation | For lightweight, required data persistence  |
-| **Validation** | Joi | Robust server-side input validation [cite: 138] |
+| **Frontend** | React, TypeScript | Component-based UI development and strong typing  |
+| **Frontend State** | TanStack Query, TanStack Form, TanStack Table | Required libraries for server state, form state, and table functionality |
+| **Styling** | Tailwind CSS | Utility-first CSS for rapid, responsive styling |
+| **Backend** | Node.js (Express) | Popular, lightweight, and efficient framework for REST APIs  |
+| **Storage** | JSON Simulation | For lightweight, required data persistence  |
+| **Validation** | Joi | Robust server-side input validation |
 
 ## ⚙️ Setup and Run Instructions 
 
 ### Prerequisites
 
-* Node.js (v18+)
+* Node.js 
 * npm or yarn
 
 ### 1. Backend Setup
@@ -31,4 +31,3 @@ This project implements a full-stack dynamic form builder system as an assignmen
 cd backend
 npm install
 npm run dev 
-# or we can use npm start 
