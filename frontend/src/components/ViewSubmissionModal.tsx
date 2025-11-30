@@ -1,4 +1,3 @@
-// frontend/src/components/ViewSubmissionModal.tsx
 
 import React from 'react';
 
@@ -16,15 +15,14 @@ interface SubmissionRow {
 const ViewSubmissionModal: React.FC<ModalProps> = ({ submission, onClose }) => {
     if (!submission) return null;
 
-    // Use Tailwind for modal styling (fixed overlay, centered content, shadow-xl)
     return (
         <div 
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"
-            onClick={onClose} // Close modal when clicking the backdrop
+            onClick={onClose} 
         >
             <div 
                 className="bg-white rounded-lg shadow-2xl w-full max-w-lg p-6 m-4 transform transition-all duration-300 scale-100"
-                onClick={(e) => e.stopPropagation()} // Prevent click propagation to close on content click
+                onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center border-b pb-3 mb-4">
                     <h3 className="text-xl font-semibold text-gray-900">
@@ -34,7 +32,7 @@ const ViewSubmissionModal: React.FC<ModalProps> = ({ submission, onClose }) => {
                         onClick={onClose} 
                         className="text-gray-400 hover:text-gray-800 transition-colors text-2xl font-light"
                     >
-                        &times; {/* Close symbol */}
+                        &times; 
                     </button>
                 </div>
 
@@ -43,7 +41,6 @@ const ViewSubmissionModal: React.FC<ModalProps> = ({ submission, onClose }) => {
                         <span className="font-medium text-gray-700">Created At:</span> {new Date(submission.createdAt).toLocaleString()}
                     </p>
                     
-                    {/* Display Submission Data (Employee Onboarding fields) */}
                     <h4 className="text-lg font-medium pt-2 border-t mt-3">Submitted Fields:</h4>
                     
                     {Object.entries(submission.data).map(([key, value]) => (

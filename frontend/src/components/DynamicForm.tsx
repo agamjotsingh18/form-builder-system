@@ -1,21 +1,17 @@
-// frontend/src/components/DynamicForm.tsx
 
 import React from 'react';
 import { FormApi, useForm, FieldApi } from '@tanstack/react-form';
 import { FormField, FormSchema, FieldType } from '../types/schema';
 import { useSubmitForm } from '../api/formApi';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast'; // Import toast function
+import toast from 'react-hot-toast'; 
 
-// Utility to generate a TanStack Form validation function from schema rules
 const createValidator = (field: FormField) => {
   return ({ value }: { value: any }) => {
-    // Required field validation [cite: 42]
     if (field.required && (value === undefined || value === null || (typeof value === 'string' && value.trim() === '') || (Array.isArray(value) && value.length === 0))) {
       return `${field.label} is required.`;
     }
 
-    // MinLength / MaxLength [cite: 37]
     if (field.type === 'text' || field.type === 'textarea') {
       if (field.validations?.minLength && String(value).length < field.validations.minLength) {
         return `Must be at least ${field.validations.minLength} characters.`;
@@ -25,7 +21,6 @@ const createValidator = (field: FormField) => {
       }
     }
 
-    // Regex [cite: 38]
     if (field.type === 'text' && field.validations?.regex) {
       const regex = new RegExp(field.validations.regex);
       if (!regex.test(String(value))) {
@@ -33,7 +28,6 @@ const createValidator = (field: FormField) => {
       }
     }
 
-    // Min / Max (numbers) [cite: 39]
     if (field.type === 'number') {
       const numValue = Number(value);
       if (field.validations?.min !== undefined && numValue < field.validations.min) {
@@ -44,7 +38,6 @@ const createValidator = (field: FormField) => {
       }
     }
     
-    // MinDate [cite: 40]
     if (field.type === 'date' && field.validations?.minDate) {
       const inputDate = new Date(value);
       const minDate = new Date(field.validations.minDate);
@@ -53,7 +46,6 @@ const createValidator = (field: FormField) => {
       }
     }
     
-    // MinSelected / MaxSelected [cite: 41]
     if (field.type === 'multi-select' && Array.isArray(value)) {
         if (field.validations?.minSelected && value.length < field.validations.minSelected) {
             return `Select at least ${field.validations.minSelected} options.`;
@@ -67,7 +59,6 @@ const createValidator = (field: FormField) => {
   };
 };
 
-// Generic Field Component to handle rendering and validation messages
 const FieldComponent: React.FC<{ field: FormField, form: FormApi<any> }> = ({ field, form }) => (
   <form.Field
     name={field.name as any}
@@ -83,13 +74,12 @@ const FieldComponent: React.FC<{ field: FormField, form: FormApi<any> }> = ({ fi
     {({ state, handleChange, handleBlur }) => {
       let inputElement;
       
-      // ShadCN-style input classes and error handling logic
       const isInvalid = state.meta.errors.length > 0 || state.meta.touchedErrors.length > 0;
       const baseInputClass = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors";
       const inputProps = {
         id: field.name,
         name: field.name,
-        placeholder: field.placeholder, // Show placeholders [cite: 34]
+        placeholder: field.placeholder,
         onBlur: handleBlur,
         'aria-required': field.required,
         className: `${baseInputClass} ${isInvalid ? 'border-red-500 ring-red-500' : 'border-gray-300'}`
@@ -206,13 +196,11 @@ const DynamicForm: React.FC<{ schema: FormSchema }> = ({ schema }) => {
         try {
             await mutate(value, {
                 onSuccess: () => {
-                    // Show success message and provide clear user feedback [cite: 46, 49]
-                    formApi.reset(); // Clear form after successful submission [cite: 47]
-toast.success('Submission successful! Navigating...', { duration: 3000 }); // SUCCESS TOAST
-                    navigate('/submissions'); // Navigate to submissions page [cite: 48]
+                    formApi.reset(); 
+toast.success('Submission successful! Navigating...', { duration: 3000 }); 
+                    navigate('/submissions'); 
                 },
                 onError: (error) => {
-                    // Show error message [cite: 46]
                     console.error('Submission Error:', error);
                     let errorMessage = 'An unexpected error occurred.';
                     if (error.message.startsWith('{')) {
@@ -243,7 +231,6 @@ toast.error(`Error: ${errorMessage}`); // ERROR TOAST
             void form.handleSubmit();
           }}
         >
-          {/* Dynamic Field Rendering */}
           {schema.fields.map(field => (
             <FieldComponent key={field.name} field={field} form={form} />
           ))}
@@ -251,15 +238,12 @@ toast.error(`Error: ${errorMessage}`); // ERROR TOAST
           <button
             type="submit"
             className={`w-full py-2.5 px-4 rounded-lg text-white font-medium transition-colors ${isPending ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'} disabled:opacity-70 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-2 mt-4`}
-            disabled={isPending || !form.state.isValid} // Disable submit button during submission [cite: 44]
+            disabled={isPending || !form.state.isValid}
           >
-            {isPending ? 'Submitting...' : 'Submit Form'} {/* Show loading indicator [cite: 45] */}
+            {isPending ? 'Submitting...' : 'Submit Form'} 
           </button>
         </form>
 
-      {/* Simple Success/Error Feedback [cite: 46] */}
-{/*       {isSuccess && <p className="mt-4 text-green-600 font-medium">✅ Submission successful!</p>} */}
-{/*       {isError && <p className="mt-4 text-red-600 font-medium">❌ Error: {error.message}</p>} */}
     </div>
   );
 };
