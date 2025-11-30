@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import DynamicFormPage from './pages/DynamicFormPage';
 import SubmissionsPage from './pages/SubmissionsPage';
-import toast, { Toaster } from 'react-hot-toast'; 
+import { Toaster } from 'react-hot-toast'; 
 import './index.css'; 
 
 

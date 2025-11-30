@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FormApi, useForm, FieldApi } from '@tanstack/react-form';
+import { FormApi, useForm } from '@tanstack/react-form';
 import { FormField, FormSchema, FieldType } from '../types/schema';
 import { useSubmitForm } from '../api/formApi';
 import { useNavigate } from 'react-router-dom';
@@ -180,7 +180,7 @@ const FieldComponent: React.FC<{ field: FormField, form: FormApi<any> }> = ({ fi
 
 const DynamicForm: React.FC<{ schema: FormSchema }> = ({ schema }) => {
   const navigate = useNavigate();
-  const { mutate, isPending, isSuccess, isError, error, reset } = useSubmitForm();
+  const { mutate, isPending } = useSubmitForm();
 
   // Initialize TanStack Form
   const form = useForm({

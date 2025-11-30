@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
-import { useSubmissions, SubmissionResponse, SubmissionsQuery, useDeleteSubmission } from '../api/formApi'; // ADD useDeleteSubmission
+import { useSubmissions, SubmissionsQuery, useDeleteSubmission } from '../api/formApi'; // ADD useDeleteSubmission
 import {
   createColumnHelper,
   flexRender,
