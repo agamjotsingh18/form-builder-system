@@ -9,6 +9,6 @@ export default defineConfig({
   // Ensure the base path is correct for Netlify deployment
   base: '/', 
   build: {
-    outDir: 'frontend', // Standard output directory
+    outDir: 'dist', // Standard output directory
   }
 });
